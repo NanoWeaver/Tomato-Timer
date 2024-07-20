@@ -1,0 +1,94 @@
+/* inter-regular - cyrillic_latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/inter-v13-cyrillic_latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* inter-600 - cyrillic_latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/inter-v13-cyrillic_latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* inter-800 - cyrillic_latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../fonts/inter-v13-cyrillic_latin-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+* {
+    font-family: 'Inter';
+}
+
+html  {
+    background-color: #E7E4D5;
+}
+
+.section-timer {
+    margin: auto;
+}
+
+.container {
+    background-color: #F9F9F9;
+    width: 1024px;
+    height: 578px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 52px;
+    padding-top: 46px;
+}
+
+.section-timer__timer {
+    font-size: 128px;
+    padding-left: 65px;
+}
+
+.section-timer__div-table {
+    padding-left: 65px;
+}
+
+.section-timer__table {
+    font-size: 24px;
+}
+
+.section-timer__tr {
+    height: 53px;
+}
+
+.section-timer__td {
+    min-width: 50px;
+    text-align: center;
+}
+
+.section-timer__th {
+    text-align: left;
+    font-weight: 300;
+}
+
+.section-timer__buttons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 45px;
+    justify-content: flex-end;
+    padding-right: 167px;
+}
+
+.section-timer__button {
+    font-size: 24px;
+    width: 150px;
+    height: 50px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: #2C2C2C;
+    color: #F9F9F9;
+}
