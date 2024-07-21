@@ -46,6 +46,103 @@ html  {
     flex-direction: column;
     row-gap: 52px;
     padding-top: 46px;
+    position: relative;
+}
+
+.setting {
+    width: 330px;
+    height: 647px;
+    border: 0px;
+    border-radius: 28px;
+    background-color: #ECE6F0;
+    position: absolute;
+    left: 360px;
+    top: 95px;
+    display: none;
+}
+
+.setting__triangle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #ECE6F0;
+    transform: rotate(45deg);
+    left: 145px;
+    top: 0px;
+
+}
+
+.setting__shell {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 24px;
+}
+
+.setting__block {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.setting__heading {
+    color: #49454F;
+    font-size: 12px;
+}
+
+.setting__cell {
+    display: flex;
+    flex-direction: row;
+}
+
+.setting__left-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting__hour {
+    width: 128px;
+    height: 72px;
+    background-color: #EADDFF;
+    border: 3px solid #65558F;
+    border-radius: 8px;
+}
+
+.setting__string {
+    font-size: 12px;
+    color: #49454F;
+}
+
+.setting__center-block {
+    font-size: 57px;
+    color: #1D1B20;
+}
+
+.setting__right-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting__minute {
+    width: 128px;
+    height: 72px;
+    background-color: #E6E0E9;
+    border: 3px solid #E6E0E9;
+    border-radius: 8px;
+}
+
+.setting__button-block {
+    padding: 10px;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.setting__button {
+    border: 0px;
+    background-color: #ECE6F0;
+    color: #65558F;
+    font-size: 16px;
 }
 
 .section-timer__shell {
@@ -74,14 +171,13 @@ html  {
     background-color: #4D4D4D;
 }
 
-.section-timer__options:focus {
+.section-timer__options:focus-visible {
     background-color: #4D4D4D;
 }
 
 .section-timer__options:active {
     background-color: #000;
 }
-
 
 .section-timer__svg {
     position: absolute;
