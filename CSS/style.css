@@ -48,9 +48,52 @@ html  {
     padding-top: 46px;
 }
 
-.section-timer__timer {
+.section-timer__shell {
     font-size: 128px;
     padding-left: 65px;
+    display: flex;
+    flex-direction: row;
+}
+
+.section-timer__timer {
+    margin: 0px;
+    width: 440px;
+}
+
+.section-timer__options {
+    background-color: #2C2C2C;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s linear;
+}
+
+.section-timer__options:hover {
+    background-color: #4D4D4D;
+}
+
+.section-timer__options:focus {
+    background-color: #4D4D4D;
+}
+
+.section-timer__options:active {
+    background-color: #000;
+}
+
+
+.section-timer__svg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    fill: #F5F5F5;
+    transition: fill 0.3s linear;
+    cursor: pointer;
+}
+
+.section-timer__svg:active {
+    fill: #fff;
 }
 
 .section-timer__div-table {
@@ -89,7 +132,43 @@ html  {
     height: 50px;
     border: 0px;
     border-radius: 10px;
-    background-color: #2C2C2C;
-    color: #F9F9F9;
     cursor: pointer;
+}
+
+#start {
+    background-color: #2C2C2C;
+    color: #F5F5F5;
+    transition: color 0.3s linear , background-color 0.3s linear;
+}
+
+#start:focus-visible {
+    background-color: #4D4D4D;
+}
+
+#start:hover {
+    background-color: #4D4D4D;
+}
+
+#start:active {
+    background-color: #000;
+    color: #fff;
+}
+
+#pause {
+    background-color: #000;
+    color: #fff;
+    transition: color 0.3s linear , background-color 0.3s linear;
+}
+
+#pause:focus-visible {
+    background-color: #4D4D4D;
+}
+
+#pause:hover {
+    background-color: #4D4D4D;
+}
+
+#pause:active {
+    background-color: #2C2C2C;
+    color: #F5F5F5;
 }
