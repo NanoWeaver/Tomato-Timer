@@ -79,9 +79,17 @@ const totalWorkingHours = document.getElementById('totalWorkingHours');
 const totalRestTime = document.getElementById('totalRestTime');
 const start = document.getElementById('start');
 const pause = document.getElementById('pause');
+const timerSettings = document.getElementById(`timerSettings`)
+const timerSettingButton = document.getElementById(`timerSettingButton`)
 
 start.addEventListener('click', timerStart);
 pause.addEventListener('click', timerPause);
+timerSettingButton.addEventListener(`click`,timerMenuVisibility);
+
+
+function timerMenuVisibility() {
+    timerSettings.classList.toggle(`none`);
+}
 
 function timerStart() {
     if (!isRunning) {

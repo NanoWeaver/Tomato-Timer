@@ -58,7 +58,15 @@ html  {
     position: absolute;
     left: 360px;
     top: 95px;
-    display: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s linear, visibility 0.3s linear;
+}
+
+.none {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s linear, visibility 0.3s linear;
 }
 
 .setting__triangle {
