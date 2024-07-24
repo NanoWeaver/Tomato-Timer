@@ -139,18 +139,58 @@ html  {
 }
 
 .setting__button-block {
-    padding: 10px;
+    padding: 5px;
     padding-left: 30px;
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
+    row-gap: 15px;
 }
 
 .setting__button {
+    min-height: 26px;
+    min-width: 101px;
     border: 0px;
     background-color: #ECE6F0;
     color: #65558F;
-    font-size: 16px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: color 0.3s linear, font-size 0.3s linear;
+}
+
+.setting__button:hover {
+    color: #21005D;
+}
+
+.setting__button:focus-visible {
+    color: #21005D;
+    outline: 0px;
+}
+
+.setting__button:active {
+    color: #21005D;
+    font-size: 17px;
+}
+
+.setting__input {
+    border: 0px;
+    width: 127px;
+    height: 71px;
+    background: transparent;
+    font-size: 45px;
+    text-align: center;
+}
+
+.setting__input-hour {
+    color: #21005D;
+}
+
+.setting__input-hour::placeholder {
+    color: #65558F;
+}
+
+.setting__input:hover , .setting__input:focus-visible , .setting__input:active {
+    outline: 0px;
 }
 
 .section-timer__shell {
