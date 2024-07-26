@@ -1,87 +1,10 @@
-let workingHoursMinut = 25;
-let shortRestMinutes = 5;
-let longRestMinutes = 40;
-let NumberСycles = 4;
-let isRunning = false;
-let work = true;
-let timer = null;
-let countdown = {
-    n: 0, // время работы
-    b: 0, // время отдыха
-    a: 0, // короткий отдых по счету
-    c: 4, // циклов до длинного отдыха
-    x: 0, // Количество помидоров
-    NumberСyclesObject : NumberСycles,
-    minuts: 0,
-    seconds: 60,
-    workingHoursSecond : workingHoursMinut * 60,
-    shortRestSecond : shortRestMinutes * 60,
-    longRestSecond : longRestMinutes * 60,
-    timeNow : workingHoursMinut * 60,
-    anonim: function( ) {
-        console.log(this.timeNow);
-        if (this.seconds == 0) {
-            this.seconds = 60;
-            if (work) {
-                this.n++;
-                totalWorkingHours.textContent = `${this.n} минут`;
-            } else {
-                this.b++;
-                totalRestTime.textContent = `${this.b} минут`;
-            }
-        }
-        console.log(`Секунды объекта до декремента ${this.seconds}`);
-        this.timeNow--;
-        this.seconds--;
-        console.log(`Секунды объекта после декремента ${this.seconds}`);
-        console.log(`так ${this.timeNow}`);
-        this.minuts = (this.timeNow / 60);
-        console.log(`так после ${this.timeNow}`);
-        timerDial.textContent = `${Math.floor(this.minuts) < 10 ? `0` + Math.floor(this.minuts) : Math.floor(this.minuts)} : ${this.seconds < 10 ? `0` + this.seconds : this.seconds}`;
-        if (Math.floor(this.timeNow) == 0) {
-            console.log(`pizdec`);
-            if (work) {
-                this.n++;
-                totalWorkingHours.textContent = `${this.n} минут`;
-                this.a++;
-                work = false;
-                if (this.a == this.NumberСyclesObject) {
-                    this.x++;
-                    numberWorkingTomatoes.textContent = `${this.x}`;
-                    this.a = 0;
-                    this.c = this.NumberСyclesObject;
-                    tomatoesBeforeRest.textContent = `${this.c}`;
-                    countdown.timeNow = this.longRestSecond;
-                    this.seconds = 60;
-                    this.anonim();
-                } else {
-                    this.x++;
-                    numberWorkingTomatoes.textContent = `${this.x}`;
-                    this.c--;
-                    tomatoesBeforeRest.textContent = `${this.c}`;
-                    countdown.timeNow = this.shortRestSecond;
-                    this.seconds = 60;
-                    this.anonim();
-                }
-            } else {
-                this.b++;
-                totalRestTime.textContent = `${this.b} минут`;
-                work = true;
-                countdown.timeNow = this.workingHoursSecond;
-                this.seconds = 60;
-                this.anonim();
-            }
-        }
-    }
-};
-
-const timerDial = document.getElementById('timerDial');
-const numberWorkingTomatoes = document.getElementById('numberWorkingTomatoes');
-const tomatoesBeforeRest = document.getElementById('tomatoesBeforeRest');
-const totalWorkingHours = document.getElementById('totalWorkingHours');
-const totalRestTime = document.getElementById('totalRestTime');
-const start = document.getElementById('start');
-const pause = document.getElementById('pause');
+const timerDial = document.getElementById(`timerDial`);
+const numberWorkingTomatoes = document.getElementById(`numberWorkingTomatoes`);
+const tomatoesBeforeRest = document.getElementById(`tomatoesBeforeRest`);
+const totalWorkingHours = document.getElementById(`totalWorkingHours`);
+const totalRestTime = document.getElementById(`totalRestTime`);
+const start = document.getElementById(`start`);
+const pause = document.getElementById(`pause`);
 const timerSettings = document.getElementById(`timerSettings`);
 const timerSettingButton = document.getElementById(`timerSettingButton`);
 const enteredWorkingHours = document.getElementById(`enteredWorkingHours`);
@@ -94,48 +17,133 @@ const enteredNumberСycles = document.getElementById(`enteredNumberСycles`);
 const accept = document.getElementById(`accept`);
 const cancel = document.getElementById(`cancel`);
 
-start.addEventListener('click', timerStart);
-pause.addEventListener('click', timerPause);
-timerSettingButton.addEventListener(`click`,timerMenuVisibility);
-accept.addEventListener(`click`,saveTimerChanges);
+let countdown = {
+    timer : null,  // Переменная для хранения setInterval
+    work : true,  // Цикл работы или отдыха
+    isRunning : false,  //  Состояние таймера
+    workingTimeMminutes: 0,  // Время работы
+    restTimeMminutes: 0,  // Время отдыха
+    numberShortRest: 0,  // Короткий отдых по счету
+    cyclesLongRest: 4,  // циклов до длинного отдыха
+    numberTomatoes: 0,  // Количество помидоров
+    numberСyclesObject : 4,  // Количестов циклов по умолчанию
+    minuts: 0,  // Переменная для хранения минут
+    seconds: 60,  // Переменная для хранения секунд
+    workingHoursSecond : 1500,  // Длительность рабочего цикла по умолчанию 
+    shortRestSecond : 300,  // Длительность короткого отдыха по умолчанию 
+    longRestSecond : 2400,  // Длительность длинного отдыха по умолчанию 
+    timeNow : 1500,  // Переменная для хранения оставшихся секунд текущего цикла 
+    anonim: function( ) {  // Работа таймера
+        timeUpdate(this.seconds);
+        updatingTimerTime();
+        if (Math.floor(this.timeNow) === 0) {
+            checkingWorkStatus(this.work);
+        }
+    }
+};
 
 
-function saveTimerChanges() {
-    let a = enteredWorkingHours.value;
-    let b = enteredWorkingMinutes.value;
-    countdown.workingHoursSecond = (+a * 60 + +b) * 60;
+start.addEventListener(`click`, timerStart);  // Обработка клика по кнопке Старт
+pause.addEventListener(`click`, timerPause);  // Обработка клика по кнопке Стоп
+timerSettingButton.addEventListener(`click`,timerMenuVisibility); // Обработка клика по значку настройки (шестерёнка справа над таймером)
+accept.addEventListener(`click`,saveTimerChanges);  // Обработка клика по кнопке Принять в меню настройки таймера
+
+
+function checkingWorkStatus(workGlobal) {  // Проверяет состояние булевой переменной work и вызывает функцию смены режима таймера
+    if (workGlobal) {
+        totalWorkingHours.textContent = `${++countdown.workingTimeMminutes} минут`;
+        countdown.numberShortRest++;
+        countdown.work = false;
+        if (countdown.numberShortRest === countdown.numberСyclesObject) {
+            settingTimerMode(`long`);
+        } else {
+            settingTimerMode(`short`);
+        }
+    } else {
+        settingTimerMode();
+    }
+}
+
+function updatingTimerTime() {  // Вычет общего времени и секунд, визуальное обновление таймера
+    countdown.timeNow--;
+    countdown.seconds--;
+    countdown.minuts = (countdown.timeNow / 60);
+    timerDial.textContent = `${timeFormatting(Math.floor(countdown.minuts))} : ${timeFormatting(countdown.seconds)}`;
+}
+
+function timeFormatting(number) {  // Решает добавлять ноль перед числом или нет
+    return number < 10 ? `0` + number : number;
+}
+
+function settingTimerMode(status = `work`) {  // Смена режима таймера
+    switch (status) {
+        case `work`:   // Рабочий 
+            totalRestTime.textContent = `${++countdown.restTimeMminutes} минут`;
+            countdown.work = true;
+            countdown.timeNow = countdown.workingHoursSecond;
+            break;
+        case `long`:  // Длинный отдых
+            numberWorkingTomatoes.textContent = `${++countdown.numberTomatoes}`;
+            countdown.numberShortRest = 0;
+            countdown.cyclesLongRest = countdown.numberСyclesObject;
+            tomatoesBeforeRest.textContent = `${countdown.cyclesLongRest}`;
+            countdown.timeNow = countdown.longRestSecond;
+            break;
+        case `short`:  // Короткий отдых
+            numberWorkingTomatoes.textContent = `${++countdown.numberTomatoes}`;
+            tomatoesBeforeRest.textContent = `${--countdown.cyclesLongRest}`;
+            countdown.timeNow = countdown.shortRestSecond;
+            break;
+    }
+    countdown.seconds = 60;
+    countdown.anonim();
+}
+
+function timeUpdate(seconds) {  // Счётчик минут работы или отдыха 
+    if (seconds === 0) {
+        countdown.seconds = 60;
+        if (countdown.work) {
+            totalWorkingHours.textContent = `${++countdown.workingTimeMminutes} минут`;
+        } else {
+            totalRestTime.textContent = `${++countdown.restTimeMminutes} минут`;
+        }
+    }
+}
+
+function conversionSeconds(a,b) {  // Возвращает сумму часов и минут в секундах
+    return (+a * 60 + +b) * 60;
+}
+
+function saveTimerChanges() {  // Сохранение настроек введённых пользователем через меню настройки (шестерёнка справа над таймером )
+    countdown.workingHoursSecond = conversionSeconds(enteredWorkingHours.value,enteredWorkingMinutes.value);
     countdown.timeNow = countdown.workingHoursSecond;
-    timerDial.textContent = `${countdown.workingHoursSecond /60 < 10 ? `0` + countdown.workingHoursSecond /60 : countdown.workingHoursSecond /60} : 00`
+    timerDial.textContent = `${timeFormatting(countdown.workingHoursSecond/60)} : 00`;
     
-    a = enteredShortRestHours.value;
-    b = enteredShortRestMinutes.value;
-    countdown.shortRestSecond = (+a * 60 + +b) * 60;
+    countdown.shortRestSecond = conversionSeconds(enteredShortRestHours.value,enteredShortRestMinutes.value);
 
-    a = enteredLongRestHours.value;
-    b = enteredLongRestMinutes.value;
-    countdown.longRestSecond = (+a * 60 + +b) * 60;
+    countdown.longRestSecond = conversionSeconds(enteredLongRestHours.value,enteredLongRestMinutes.value);
 
-    countdown.NumberСyclesObject = +enteredNumberСycles.value;
-    countdown.c = +enteredNumberСycles.value;
+    countdown.numberСyclesObject = +enteredNumberСycles.value;
+    countdown.cyclesLongRest = +enteredNumberСycles.value;
     tomatoesBeforeRest.textContent = +enteredNumberСycles.value;
 
     timerMenuVisibility();
 }
 
-function timerMenuVisibility() {
+function timerMenuVisibility() {  // Показ или скрытие меню настройки (шестерёнка справа над таймером ) через класс none
     timerSettings.classList.toggle(`none`);
 }
 
 function timerStart() {
-    if (!isRunning) {
-        isRunning = true;
-        timer = setInterval(countdown.anonim.bind(countdown), 10); // Привязка контекста
+    if (!countdown.isRunning) {
+        countdown.isRunning = true;
+        countdown.timer = setInterval(countdown.anonim.bind(countdown), 10); // Привязка контекста к объекту countdow и запуск таймера
     }
 }
 
 function timerPause() {
-    if (isRunning) {
-        isRunning = false;
-        clearInterval(timer); // Остановка интервала
+    if (countdown.isRunning) {
+        countdown.isRunning = false;
+        clearInterval(countdown.timer); // Остановка таймера
     }
 }

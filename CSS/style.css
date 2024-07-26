@@ -179,6 +179,14 @@ html  {
     background: transparent;
     font-size: 45px;
     text-align: center;
+    appearance: none;
+    margin: 0;
+}
+
+.setting__input::-webkit-outer-spin-button,
+.setting__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .setting__input-hour {
