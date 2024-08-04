@@ -137,7 +137,7 @@ function timerMenuVisibility() {  // Показ или скрытие меню �
 function timerStart() {
     if (!countdown.isRunning) {
         countdown.isRunning = true;
-        countdown.timer = setInterval(countdown.anonim.bind(countdown), 10); // Привязка контекста к объекту countdow и запуск таймера
+        countdown.timer = setInterval(countdown.anonim.bind(countdown), 1000); // Привязка контекста к объекту countdow и запуск таймера
     }
 }
 
